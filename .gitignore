@@ -1,0 +1,14 @@
+
+.vs/Shutdown/v16/
+
+.vs/Shutdown/DesignTimeBuild/
+
+TestResults/
+
+Shutdown/bin/
+
+Shutdown/obj/
+
+Shutdown.UnitTests/bin/
+
+Shutdown.UnitTests/obj/

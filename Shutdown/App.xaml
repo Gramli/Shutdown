@@ -1,0 +1,34 @@
+﻿<Application x:Class="Shutdown.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Shutdown"
+             xmlns:ViewModel="clr-namespace:Shutdown.ViewModel"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ObjectDataProvider x:Key="SystemActionsEnumValues"
+            MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModel:SystemActionsEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <Style x:Key="timeUpDown" TargetType="{x:Type xctk:IntegerUpDown}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="59"/>
+            <Setter Property="ClipValueToMinMax" Value="True"/>
+        </Style>
+
+        <Style x:Key="comboBoxCenter" TargetType="{x:Type ComboBox}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
