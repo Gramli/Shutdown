@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Shutdown.Model;
+using Shutdown.Models;
 using System.Threading;
 
 namespace Shutdown.UnitTests
@@ -14,7 +14,7 @@ namespace Shutdown.UnitTests
             var time = new System.TimeSpan(0, 0, 4);
             var wait = new ManualResetEvent(false);
 
-            TimeTicker ticker = new TimeTicker(2);
+            var ticker = new TimeTicker(2);
             ticker.IntervalElapsed += () =>
             {
                 intervals += 1;

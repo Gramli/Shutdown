@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Shutdown.View.SetTimeVC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shutdown.View"
+             xmlns:valid="clr-namespace:Shutdown.Validators"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="valueComboBox" Grid.Column="0" ItemsSource="{Binding DefaultTimeValues, Mode=OneTime}" Text="{Binding TimeValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Style="{StaticResource comboBoxInError}" IsEditable="True"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource TimeUnitsEnumValues}}" SelectedItem="{Binding SelectedTimeUnit, Mode=TwoWay}" Style="{StaticResource comboBoxCenter}"/>
+    </Grid>
+</UserControl>

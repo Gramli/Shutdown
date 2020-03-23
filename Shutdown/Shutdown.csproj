@@ -7,7 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
+    <None Remove="Resources\icons8_historical.ico" />
+    <None Remove="Resources\icons8_historical_96px.png" />
+    <None Remove="Resources\icons8_pause_96px.png" />
+    <None Remove="Resources\icons8_play_96px.png" />
+    <None Remove="Resources\icons8_shutdown.ico" />
+    <None Remove="Resources\icons8_stop_96px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icons8_historical.ico" />
+    <Resource Include="Resources\icons8_historical_96px.png" />
+    <Resource Include="Resources\icons8_pause_96px.png" />
+    <Resource Include="Resources\icons8_play_96px.png" />
+    <Resource Include="Resources\icons8_shutdown.ico" />
+    <Resource Include="Resources\icons8_stop_96px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 

@@ -1,2 +1,2 @@
 # Shutdown
-WPF application for pc shutdown with timer
+C# .NET Core WPF(MVVM) application for pc shutdown with countdown.

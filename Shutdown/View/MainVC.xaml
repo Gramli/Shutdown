@@ -4,13 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shutdown.View"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:valid="clr-namespace:Shutdown.Validators"
+             xmlns:conv="clr-namespace:Shutdown.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="400">
     <Grid>
+        <Grid.Resources>
+            <conv:BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+            <conv:BooleanToVisibilityConverterInverted x:Key="boolToVisibilityInv"/>
+            <conv:InvertedBooleanConverter x:Key="invBool"/>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -21,13 +25,44 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" ItemsSource="{Binding Source={StaticResource SystemActionsEnumValues}}" SelectedItem="{Binding SelectedAction}" Style="{StaticResource comboBoxCenter}"/>
+        <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Source={StaticResource SystemActionsEnumValues}}" SelectedItem="{Binding SelectedAction}" Style="{StaticResource comboBoxCenter}" IsEnabled="{Binding ElementName=toogleStart, Path=IsChecked, Converter={StaticResource invBool}}"/>
 
-        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Value="{Binding Hours, Mode=TwoWay}" Style="{StaticResource timeUpDown}"/>
-        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Value="{Binding Minutes, Mode=TwoWay}" Style="{StaticResource timeUpDown}"/>
-        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Value="{Binding Seconds, Mode=TwoWay}" Style="{StaticResource timeUpDown}"/>
-
-        <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <ToggleButton Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"/>
+        <local:SetTimeVC x:Name="setT" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" DataContext="{Binding SetTime}" Visibility="{Binding ElementName=toogleStart, Path=IsChecked, Converter={StaticResource boolToVisibilityInv}}"/>
+        <local:CountdownVC Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" DataContext="{Binding Countdown}" Visibility="{Binding ElementName=toogleStart, Path=IsChecked, Converter={StaticResource boolToVisibility}}"/>
+        
+        <ToggleButton x:Name="toogleStart" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Command="{Binding ActionCommand}">
+            <Image>
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=toogleStart, Path=IsChecked}" Value="false">
+                                <Setter Property="Source" Value="{StaticResource play}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=toogleStart, Path=IsChecked}" Value="true">
+                                <Setter Property="Source" Value="{StaticResource pause}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <ToggleButton.Style>
+                <Style TargetType="{x:Type ToggleButton}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=setT, Path=Validation.HasError}" Value="true">
+                            <Setter Property="IsEnabled" Value="false"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=setT, Path=Validation.HasError}" Value="false">
+                            <Setter Property="IsEnabled" Value="true"/>
+                        </DataTrigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="CommandParameter" Value="start"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter Property="CommandParameter" Value="stop"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToggleButton.Style>
+        </ToggleButton>
     </Grid>
 </UserControl>

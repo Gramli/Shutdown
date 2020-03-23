@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:Shutdown"
-             xmlns:ViewModel="clr-namespace:Shutdown.ViewModel"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:ViewModel="clr-namespace:Shutdown.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ObjectDataProvider x:Key="SystemActionsEnumValues"
@@ -14,14 +13,12 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
-        <Style x:Key="timeUpDown" TargetType="{x:Type xctk:IntegerUpDown}">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Minimum" Value="0"/>
-            <Setter Property="Maximum" Value="59"/>
-            <Setter Property="ClipValueToMinMax" Value="True"/>
-        </Style>
+        <ObjectDataProvider x:Key="TimeUnitsEnumValues"
+            MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ViewModel:TimeUnitsEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
 
         <Style x:Key="comboBoxCenter" TargetType="{x:Type ComboBox}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -29,6 +26,33 @@
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
+
+        <Style x:Key="textBlockCenter" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="comboBoxInError" TargetType="{x:Type ComboBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)/ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <BitmapImage x:Key="play" UriSource="Resources/icons8_play_96px.png"/>
+        <BitmapImage x:Key="pause" UriSource="Resources/icons8_pause_96px.png"/>
+        <BitmapImage x:Key="stop" UriSource="Resources/icons8_stop_96px.png"/>
+        <BitmapImage x:Key="appPict" UriSource="Resources/icons8_historical_96px.png"/>
+        <BitmapImage x:Key="appIcon" UriSource="Resources/icons8_historical.ico"/>
 
     </Application.Resources>
 </Application>

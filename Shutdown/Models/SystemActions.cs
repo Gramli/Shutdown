@@ -1,18 +1,21 @@
 ﻿using System.Management;
 
-namespace Shutdown.Model
+namespace Shutdown.Models
 {
     public static class SystemActions
     {
-        private static void Shutdown()
+        /// <summary>
+        /// Shutdown PC with ManagementObject Win32Shutdown method
+        /// </summary>
+        public static void Shutdown()
         {
             ManagementBaseObject outParameters = null;
-            ManagementClass sysOS = new ManagementClass("Win32_OperatingSystem");
+            var sysOS = new ManagementClass("Win32_OperatingSystem");
             sysOS.Get();
             // enables required security privilege.
             sysOS.Scope.Options.EnablePrivileges = true;
             // get our in parameters
-            ManagementBaseObject inParameters = sysOS.GetMethodParameters("Win32Shutdown");
+            var inParameters = sysOS.GetMethodParameters("Win32Shutdown");
             // pass the flag of 0 = System Shutdown
             inParameters["Flags"] = "1";
             inParameters["Reserved"] = "0";
@@ -20,15 +23,18 @@ namespace Shutdown.Model
                 outParameters = manObj.InvokeMethod("Win32Shutdown", inParameters, null);
         }
 
-        private static void Restart()
+        /// <summary>
+        /// Restart PC with ManagementObject Win32Shutdown method
+        /// </summary>
+        public static void Restart()
         {
             ManagementBaseObject outParameters = null;
-            ManagementClass sysOS = new ManagementClass("Win32_OperatingSystem");
+            var sysOS = new ManagementClass("Win32_OperatingSystem");
             sysOS.Get();
             // enables required security privilege.
             sysOS.Scope.Options.EnablePrivileges = true;
             // get our in parameters
-            ManagementBaseObject inParameters = sysOS.GetMethodParameters("Win32Shutdown");
+            var inParameters = sysOS.GetMethodParameters("Win32Shutdown");
             // pass the flag of 0 = System Shutdown
             inParameters["Flags"] = "2";
             inParameters["Reserved"] = "0";

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Timers;
 
-namespace Shutdown.Model
+namespace Shutdown.Models
 {
+    /// <summary>
+    /// Countdown from setted time to zero
+    /// </summary>
     public class TimeTicker
     {
         private Timer _timer;
@@ -10,6 +13,9 @@ namespace Shutdown.Model
         private uint _intervalInSeconds;
         private uint _stepInSeconds;
 
+        /// <summary>
+        /// Predefined interval, after the interval IntervalElapsed event is invoked
+        /// </summary>
         public uint IntervalInSeconds
         {
             get { return this._intervalInSeconds; }
@@ -20,6 +26,9 @@ namespace Shutdown.Model
                     this._stepInSeconds = value;
             }
         }
+        /// <summary>
+        /// Time from which is countdowned
+        /// </summary>
         public TimeSpan CountdownTime
         {
             get { return this._countdownTime; }
@@ -29,11 +38,21 @@ namespace Shutdown.Model
                 this._countdownTime = value;
             }
         }
+        /// <summary>
+        /// Elapsed time
+        /// </summary>
         public TimeSpan ElapsedTime => this._countdownTime - this.RestTime;
+        /// <summary>
+        /// Time to zero
+        /// </summary>
         public TimeSpan RestTime { get; private set; }
-
+        /// <summary>
+        /// Invoked after predefined interval
+        /// </summary>
         public event Action IntervalElapsed;
-
+        /// <summary>
+        /// Invoked at zero
+        /// </summary>
         public event Action Elapsed;
         public TimeTicker(uint intervalInSeconds)
         {
@@ -70,13 +89,7 @@ namespace Shutdown.Model
             this.CountdownTime = countdownTime;
             this._timer.Start();
         }
-
         public void Stop()
-        {
-            this.Clear();
-        }
-
-        public void Pause()
         {
             this._timer.Stop();
         }

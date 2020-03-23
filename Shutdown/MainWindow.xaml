@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shutdown"
         xmlns:view="clr-namespace:Shutdown.View"
+        xmlns:models="clr-namespace:Shutdown.ViewModels"
         mc:Ignorable="d"
-        Title="Shutdown" Height="200" Width="300" ResizeMode="CanMinimize">
+        Title="Shutdown" Height="200" Width="300" ResizeMode="CanMinimize" Icon="{StaticResource appIcon}">
     <Grid>
-        <view:MainVC/>
+        <view:MainVC>
+            <view:MainVC.DataContext>
+                <models:MainVM/>
+            </view:MainVC.DataContext>
+        </view:MainVC>
     </Grid>
 </Window>
