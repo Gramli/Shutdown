@@ -77,9 +77,9 @@ namespace Shutdown.ViewModels
         {
             switch (this.SelectedTimeUnit)
             {
-                case TimeUnitsEnum.Hours: this.TimeValue = $"{timeSpan.TotalHours}"; break;
-                case TimeUnitsEnum.Minutes: this.TimeValue = $"{timeSpan.TotalMinutes}"; break;
-                case TimeUnitsEnum.Seconds: this.TimeValue = $"{timeSpan.TotalSeconds}"; break;
+                case TimeUnitsEnum.Hours: this.TimeValue = $"{Convert.ToInt32(timeSpan.TotalHours)}"; break;
+                case TimeUnitsEnum.Minutes: this.TimeValue = $"{Convert.ToInt32(timeSpan.TotalMinutes)}"; break;
+                case TimeUnitsEnum.Seconds: this.TimeValue = $"{Convert.ToInt32(timeSpan.TotalSeconds)}"; break;
             }
         }
 
